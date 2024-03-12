@@ -11,6 +11,7 @@ public class WeatherAnalyzer {
     }
 
     public String getDayWithSmallestTempSpread(){
-        return null;
+        this.weatherDataList.sort(Utils::compareWeatherBySpread);
+        return this.weatherDataList.get(weatherDataList.size()-1).getDay();
     }
 }
