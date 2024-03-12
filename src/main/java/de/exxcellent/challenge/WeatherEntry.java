@@ -1,5 +1,7 @@
 package de.exxcellent.challenge;
 
+import java.util.Objects;
+
 public class WeatherEntry{
 
     private String day;
@@ -22,6 +24,14 @@ public class WeatherEntry{
 
     public int getMnt() {
         return mnt;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WeatherEntry that = (WeatherEntry) o;
+        return mxt == that.mxt && mnt == that.mnt && Objects.equals(day, that.day);
     }
 
 }

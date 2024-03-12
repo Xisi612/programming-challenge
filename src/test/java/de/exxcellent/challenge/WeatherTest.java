@@ -18,14 +18,20 @@ class WeatherTest {
 
         String path = "de/exxcellent/challenge/weather.csv";
         CSVReader csvReader = new CSVReader();
-        ArrayList<WeatherEntry> weatherDataList = csvReader.getWeatherData(path);
+        ArrayList<WeatherEntry> weatherDataList;
+
+        try {
+            weatherDataList = csvReader.getWeatherData(path);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         assertEquals(expectedWeatherDataList, weatherDataList);
     }
 
    @Test
    void testGetDayWithSmallestTempSpread(){
-        String expectedDay = "1";
+        String expectedDay = "2";
         ArrayList<WeatherEntry> weatherDataList = new ArrayList<>();
         weatherDataList.add(new WeatherEntry("1",88,59));
         weatherDataList.add(new WeatherEntry("2",79,63));
