@@ -7,10 +7,10 @@ public class Utils {
         return Math.abs(valueB-valueA);
     }
 
-    public static int compareWeatherBySpread(WeatherEntry weatherEntryA, WeatherEntry weatherEntryB){
-        int spreadOfWeatherEntryA = Utils.calculateSpread(weatherEntryA.getMnt(), weatherEntryA.getMxt());
-        int spreadOfWeatherEntryB = Utils.calculateSpread(weatherEntryB.getMnt(), weatherEntryB.getMxt());
-        return Integer.compare(spreadOfWeatherEntryA, spreadOfWeatherEntryB);
+    public static int compareBySpread(int minValueA, int maxValueA, int minValueB, int maxValueB){
+        int spreadOfEntryA = Utils.calculateSpread(minValueA, maxValueA);
+        int spreadOfEntryB = Utils.calculateSpread(minValueB, maxValueB);
+        return Integer.compare(spreadOfEntryA, spreadOfEntryB);
     }
 
 }
