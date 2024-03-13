@@ -34,4 +34,9 @@ public class CSVReader {
         reader.close();
         return weatherDataList;
     }
+
+    public ArrayList<FootballEntry> getFootballData (String pathFromResources){
+
+        return null;
+    }
 }
