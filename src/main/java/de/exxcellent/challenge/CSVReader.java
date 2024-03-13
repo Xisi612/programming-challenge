@@ -35,8 +35,26 @@ public class CSVReader {
         return weatherDataList;
     }
 
-    public ArrayList<FootballEntry> getFootballData (String pathFromResources){
+    public ArrayList<FootballEntry> getFootballData (String pathFromResources) throws IOException {
+        ArrayList<FootballEntry> footballDataList = new ArrayList<>();
 
-        return null;
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(pathFromResources);
+        if (inputStream == null) throw new IOException();
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        // skip header-line
+        reader.readLine();
+
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] parts = line.split(",");
+            FootballEntry entry = new FootballEntry(parts[0],
+                    Integer.parseInt(parts[5]),
+                    Integer.parseInt(parts[6]));
+            footballDataList.add(entry);
+        }
+
+        reader.close();
+        return footballDataList;
     }
 }

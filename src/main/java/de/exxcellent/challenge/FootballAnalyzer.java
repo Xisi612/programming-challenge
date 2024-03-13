@@ -11,7 +11,12 @@ public class FootballAnalyzer {
     }
 
     public String getTeamWithSmallestGoalSpread(){
-        return null;
+        this.footballDataList.sort(this::compareFootballEntryBySpread);
+        return this.footballDataList.get(0).getTeam();
+    }
+
+    public int compareFootballEntryBySpread(FootballEntry entryA, FootballEntry entryB){
+        return Utils.compareBySpread(entryA.getGoals(),entryA.getGoalsAllowed(),entryB.getGoals(),entryB.getGoalsAllowed());
     }
 
 }

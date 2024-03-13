@@ -17,22 +17,35 @@ public final class App {
      */
     public static void main(String... args) {
 
-        String pathFromResources = "de/exxcellent/challenge/weather.csv";
+        String pathFromResourcesWeather = "de/exxcellent/challenge/weather.csv";
+        String pathFromResourcesFootball = "de/exxcellent/challenge/football.csv";
 
         CSVReader csvReader = new CSVReader();
         ArrayList <WeatherEntry> weatherDataList = new ArrayList<>();
         try {
-            weatherDataList = csvReader.getWeatherData(pathFromResources);
+            weatherDataList = csvReader.getWeatherData(pathFromResourcesWeather);
+
         } catch (IOException e) {
-            System.err.println("File could not be loaded. Please check whether the file is available under the following path: " + pathFromResources);
+            System.err.println("File could not be loaded. Please check whether the file is available under the following path: " + pathFromResourcesWeather);
             System.exit(1);
         }
+
+        ArrayList <FootballEntry> footballDataList = new ArrayList<>();
+        try {
+            footballDataList = csvReader.getFootballData(pathFromResourcesFootball);
+
+        } catch (IOException e) {
+            System.err.println("File could not be loaded. Please check whether the file is available under the following path: " + pathFromResourcesFootball);
+            System.exit(1);
+        }
+
         WeatherAnalyzer weatherAnalyzer = new WeatherAnalyzer(weatherDataList);
+        FootballAnalyzer footballAnalyzer = new FootballAnalyzer(footballDataList);
 
         String dayWithSmallestTempSpread = weatherAnalyzer.getDayWithSmallestTempSpread();
         System.out.printf("Day with smallest temperature spread : %s%n", dayWithSmallestTempSpread);
 
-        String teamWithSmallestGoalSpread = "A good team"; // Your goal analysis function call …
+        String teamWithSmallestGoalSpread = footballAnalyzer.getTeamWithSmallestGoalSpread();
         System.out.printf("Team with smallest goal spread       : %s%n", teamWithSmallestGoalSpread);
     }
 
