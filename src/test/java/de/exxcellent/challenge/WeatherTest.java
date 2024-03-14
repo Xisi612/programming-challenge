@@ -1,5 +1,8 @@
 package de.exxcellent.challenge;
 
+import de.exxcellent.challenge.analyzer.WeatherAnalyzer;
+import de.exxcellent.challenge.models.WeatherEntry;
+import de.exxcellent.challenge.reader.CSVReader;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

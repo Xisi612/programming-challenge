@@ -1,4 +1,7 @@
-package de.exxcellent.challenge;
+package de.exxcellent.challenge.analyzer;
+
+import de.exxcellent.challenge.Utils;
+import de.exxcellent.challenge.models.WeatherEntry;
 
 import java.util.ArrayList;
 

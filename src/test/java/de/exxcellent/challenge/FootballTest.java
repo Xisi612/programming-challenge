@@ -1,5 +1,8 @@
 package de.exxcellent.challenge;
 
+import de.exxcellent.challenge.analyzer.FootballAnalyzer;
+import de.exxcellent.challenge.models.FootballEntry;
+import de.exxcellent.challenge.reader.CSVReader;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

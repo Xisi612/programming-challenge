@@ -1,4 +1,7 @@
-package de.exxcellent.challenge;
+package de.exxcellent.challenge.reader;
+
+import de.exxcellent.challenge.models.FootballEntry;
+import de.exxcellent.challenge.models.WeatherEntry;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,5 +1,11 @@
 package de.exxcellent.challenge;
 
+import de.exxcellent.challenge.analyzer.FootballAnalyzer;
+import de.exxcellent.challenge.analyzer.WeatherAnalyzer;
+import de.exxcellent.challenge.models.FootballEntry;
+import de.exxcellent.challenge.models.WeatherEntry;
+import de.exxcellent.challenge.reader.CSVReader;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
