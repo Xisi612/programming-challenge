@@ -8,6 +8,7 @@ import de.exxcellent.challenge.reader.CSVReader;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  * The entry class for your solution. This class is only aimed as starting point and not intended as baseline for your software
@@ -19,6 +20,7 @@ public final class App {
 
     /**
      * This is the main entry method of your program.
+     *
      * @param args The CLI arguments passed
      */
     public static void main(String... args) {
@@ -27,32 +29,25 @@ public final class App {
         String pathFromResourcesFootball = "de/exxcellent/challenge/football.csv";
 
         CSVReader csvReader = new CSVReader();
-        ArrayList <WeatherEntry> weatherDataList = new ArrayList<>();
-        try {
-            weatherDataList = csvReader.getWeatherData(pathFromResourcesWeather);
+        Optional<ArrayList<WeatherEntry>> weatherDataList = csvReader.getWeatherData(pathFromResourcesWeather);
+        Optional<ArrayList<FootballEntry>> footballDataList = csvReader.getFootballData(pathFromResourcesFootball);
 
-        } catch (IOException e) {
-            System.err.println("File could not be loaded. Please check whether the file is available under the following path: " + pathFromResourcesWeather);
-            System.exit(1);
+        if (weatherDataList.isPresent()) {
+            WeatherAnalyzer weatherAnalyzer = new WeatherAnalyzer(weatherDataList.get());
+            String dayWithSmallestTempSpread = weatherAnalyzer.getDayWithSmallestTempSpread();
+            System.out.printf("Day with smallest temperature spread : %s%n", dayWithSmallestTempSpread);
+        } else {
+            System.out.println("Weather data is not available and could therefore not be analyzed");
         }
 
-        ArrayList <FootballEntry> footballDataList = new ArrayList<>();
-        try {
-            footballDataList = csvReader.getFootballData(pathFromResourcesFootball);
-
-        } catch (IOException e) {
-            System.err.println("File could not be loaded. Please check whether the file is available under the following path: " + pathFromResourcesFootball);
-            System.exit(1);
+        if (footballDataList.isPresent()) {
+            FootballAnalyzer footballAnalyzer = new FootballAnalyzer(footballDataList.get());
+            String teamWithSmallestGoalSpread = footballAnalyzer.getTeamWithSmallestGoalSpread();
+            System.out.printf("Team with smallest goal spread       : %s%n", teamWithSmallestGoalSpread);
+        } else {
+            System.out.println("Weather data is not available and could therefore not be analyzed");
         }
 
-        WeatherAnalyzer weatherAnalyzer = new WeatherAnalyzer(weatherDataList);
-        FootballAnalyzer footballAnalyzer = new FootballAnalyzer(footballDataList);
-
-        String dayWithSmallestTempSpread = weatherAnalyzer.getDayWithSmallestTempSpread();
-        System.out.printf("Day with smallest temperature spread : %s%n", dayWithSmallestTempSpread);
-
-        String teamWithSmallestGoalSpread = footballAnalyzer.getTeamWithSmallestGoalSpread();
-        System.out.printf("Team with smallest goal spread       : %s%n", teamWithSmallestGoalSpread);
     }
 
 }

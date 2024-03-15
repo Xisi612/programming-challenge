@@ -8,56 +8,76 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Optional;
 
-public class CSVReader {
+public class CSVReader implements IReader {
 
-    public CSVReader(){
+    public CSVReader() {
 
     }
 
-    public ArrayList<WeatherEntry> getWeatherData (String pathFromResources) throws IOException {
+    public Optional<ArrayList<WeatherEntry>> getWeatherData(String source) {
         ArrayList<WeatherEntry> weatherDataList = new ArrayList<>();
 
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(pathFromResources);
-        if (inputStream == null) throw new IOException();
-
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        // skip header-line
-        reader.readLine();
-
-        String line;
-        while ((line = reader.readLine()) != null) {
-            String[] parts = line.split(",");
-            WeatherEntry entry = new WeatherEntry(parts[0],
-                    Integer.parseInt(parts[1]),
-                    Integer.parseInt(parts[2]));
-            weatherDataList.add(entry);
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(source);
+        if (inputStream == null) {
+            System.err.println("File could not be found. Please check whether the file is available under the following path: resources/" + source);
+            return Optional.empty();
         }
 
-        reader.close();
-        return weatherDataList;
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+            // skip header-line
+            reader.readLine();
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                WeatherEntry entry = new WeatherEntry(parts[0],
+                        Integer.parseInt(parts[1]),
+                        Integer.parseInt(parts[2]));
+                weatherDataList.add(entry);
+            }
+
+            return Optional.of(weatherDataList);
+
+        } catch (IOException e) {
+            System.err.println("File " + source + " could not be read.");
+            return Optional.empty();
+        }
+
     }
 
-    public ArrayList<FootballEntry> getFootballData (String pathFromResources) throws IOException {
+
+    public Optional<ArrayList<FootballEntry>> getFootballData(String source) {
         ArrayList<FootballEntry> footballDataList = new ArrayList<>();
 
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(pathFromResources);
-        if (inputStream == null) throw new IOException();
-
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        // skip header-line
-        reader.readLine();
-
-        String line;
-        while ((line = reader.readLine()) != null) {
-            String[] parts = line.split(",");
-            FootballEntry entry = new FootballEntry(parts[0],
-                    Integer.parseInt(parts[5]),
-                    Integer.parseInt(parts[6]));
-            footballDataList.add(entry);
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(source);
+        if (inputStream == null) {
+            System.err.println("File could not be found. Please check whether the file is available under the following path: resources/" + source);
+            return Optional.empty();
         }
 
-        reader.close();
-        return footballDataList;
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+            // skip header-line
+            reader.readLine();
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                FootballEntry entry = new FootballEntry(parts[0],
+                        Integer.parseInt(parts[5]),
+                        Integer.parseInt(parts[6]));
+                footballDataList.add(entry);
+            }
+
+            return Optional.of(footballDataList);
+
+        } catch (IOException e) {
+
+            System.err.println("File" + source + "could not be read.");
+            return Optional.empty();
+
+        }
+
     }
 }
