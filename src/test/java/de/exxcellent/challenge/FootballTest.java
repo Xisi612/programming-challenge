@@ -5,31 +5,27 @@ import de.exxcellent.challenge.models.FootballEntry;
 import de.exxcellent.challenge.reader.CSVReader;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FootballTest {
 
     @Test
-    void testGetFootballDataList(){
+    void testGetFootballDataList() {
         ArrayList<FootballEntry> expectedFootballDataList = new ArrayList<>();
-        expectedFootballDataList.add(new FootballEntry("Arsenal",79,36));
-        expectedFootballDataList.add(new FootballEntry("Liverpool",67,30));
-        expectedFootballDataList.add(new FootballEntry("Manchester United",87,45));
+        expectedFootballDataList.add(new FootballEntry("Arsenal", 79, 36));
+        expectedFootballDataList.add(new FootballEntry("Liverpool", 67, 30));
+        expectedFootballDataList.add(new FootballEntry("Manchester United", 87, 45));
 
         String path = "de/exxcellent/challenge/football.csv";
         CSVReader csvReader = new CSVReader();
-        ArrayList<FootballEntry> footballDataList;
+        Optional<ArrayList<FootballEntry>> footballDataList = csvReader.getFootballData(path);
 
-        try {
-            footballDataList = csvReader.getFootballData(path);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        assertEquals(expectedFootballDataList, footballDataList);
+        assertTrue(footballDataList.isPresent());
+        assertEquals(expectedFootballDataList, footballDataList.get());
     }
 
     @Test
