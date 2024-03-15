@@ -10,12 +10,21 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Optional;
 
+/**
+ * The class consists methode to parse csv files.
+ */
 public class CSVReader implements IReader {
 
     public CSVReader() {
 
     }
 
+    /**
+     * Parse data of source in list of weather entries.
+     *
+     * @param source Path to source-file.
+     * @return Optional ArrayList of type WeatherEntry. If the source can't be accessed, the Optional holds no value.
+     */
     public Optional<ArrayList<WeatherEntry>> getWeatherData(String source) {
         ArrayList<WeatherEntry> weatherDataList = new ArrayList<>();
 
@@ -48,6 +57,12 @@ public class CSVReader implements IReader {
     }
 
 
+    /**
+     * Parse data of source in list of football entries.
+     *
+     * @param source Path to source-file.
+     * @return Optional ArrayList of type FootballEntry. If the source can't be accessed, the Optional holds no value.
+     */
     public Optional<ArrayList<FootballEntry>> getFootballData(String source) {
         ArrayList<FootballEntry> footballDataList = new ArrayList<>();
 

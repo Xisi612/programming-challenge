@@ -2,11 +2,16 @@ package de.exxcellent.challenge.models;
 
 import java.util.Objects;
 
+/**
+ * Models the data of a football entry.
+ */
 public class FootballEntry {
 
     private String team;
     private int goals;
     private int goalsAllowed;
+
+    //... other parameters
 
     public FootballEntry(String team, int goals, int goalsAllowed) {
         this.team = team;

@@ -2,11 +2,16 @@ package de.exxcellent.challenge.models;
 
 import java.util.Objects;
 
-public class WeatherEntry{
+/**
+ * Models the data of a weather entry.
+ */
+public class WeatherEntry {
 
     private String day;
     private int mxt;
     private int mnt;
+
+    //... other parameters
 
     public WeatherEntry(String day, int mxt, int mnt) {
         this.day = day;
@@ -25,6 +30,7 @@ public class WeatherEntry{
     public int getMnt() {
         return mnt;
     }
+
 
     @Override
     public boolean equals(Object o) {
